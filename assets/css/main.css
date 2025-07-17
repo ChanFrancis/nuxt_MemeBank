@@ -43,6 +43,14 @@
     --secondary: #31f9a9;
     --ternary: #d4dcff;
     --accent: #b96ac9;
+    --toastify-color-success: #31f9a9;
+    --toastify-text-color-success: #095e3f;
+    --toastify-color-error: oklch(80.8% 0.114 19.571);
+    --toastify-text-color-error: oklch(39.6% 0.141 25.723);
+    --toastify-color-info: oklch(80% 0.105 251.813);
+    --toastify-text-color-info: oklch(29% 0.066 243.157);
+    --toastify-color-warning: oklch(92.4% 0.12 95.746);
+    --toastify-text-color-warning: oklch(47.3% 0.137 46.201);
 }
 
 /* Configuration globale de la police */
@@ -90,4 +98,9 @@
 /* Classes de police personnalisées */
 .font-arimo {
     font-family: "Arimo", sans-serif;
+}
+
+.Toastify__toast-theme--colored {
+    border-radius: 1rem;
+    top: 6rem;
 }

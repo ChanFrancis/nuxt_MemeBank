@@ -1,4 +1,11 @@
 // server/api/stickers.ts
-import stickers from '../data/stickers.json'
+import fs from "fs/promises"
+import { join } from "path"
 
-export default defineEventHandler(() => stickers)
+const filePath = join(process.cwd(), ".data/stickers.json")
+
+export default defineEventHandler(async (event) => {
+    setResponseHeader(event, "Cache-Control", "no-store")
+    const content = await fs.readFile(filePath, "utf-8")
+    return JSON.parse(content)
+})

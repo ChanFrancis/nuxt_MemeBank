@@ -11,9 +11,9 @@ export default defineNuxtConfig({
         "@nuxt/fonts",
         "@nuxt/test-utils",
         "@nuxt/ui",
-        '@pinia/nuxt',
+        "@pinia/nuxt",
     ],
-    css: ["~/assets/css/main.css"],
+    css: ["vue3-toastify/dist/index.css", "~/assets/css/main.css"],
     fonts: {
         families: [{ name: "Arimo", provider: "google" }],
     },
@@ -22,9 +22,9 @@ export default defineNuxtConfig({
         secondary: "green",
         ternary: "gray",
         color: {
-            primary: '#061A40',
-            secondary: '#31F9A9',
-            ternary: '#93B5C6',
-        }
+            primary: "#061A40",
+            secondary: "#31F9A9",
+            ternary: "#93B5C6",
+        },
     },
-});
+})

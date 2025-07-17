@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 400, statusMessage: "Invalid ID" })
     }
 
-    const filePath = join(process.cwd(), "server/data/stickers.json")
+    const filePath = join(process.cwd(), ".data/stickers.json")
 
     let data
     try {

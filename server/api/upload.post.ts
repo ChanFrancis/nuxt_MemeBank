@@ -5,12 +5,13 @@ import { join, extname } from "path"
 import type { Sticker } from "~/types/sticker"
 
 const UPLOAD_DIR = join(process.cwd(), "public/stickers")
-const DATA_FILE = join(process.cwd(), "server/data/stickers.json")
+const DATA_FILE = join(process.cwd(), ".data/stickers.json")
 
 export default defineEventHandler(async (event) => {
     try {
         const parts = await readMultipartFormData(event)
         const filePart = parts.find((p) => p.filename && p.data)
+        const tags = parts.find((p) => p.name === "tags")?.data
 
         if (!filePart) {
             throw createError({ statusCode: 400, statusMessage: "Pas de fichier reçu." })
@@ -50,7 +51,7 @@ export default defineEventHandler(async (event) => {
             id: newId,
             name: filePart?.filename?.replace(/\.[^/.]+$/, ""),
             url: `/stickers/${filename}`,
-            tags: [],
+            tags: tags ? JSON.parse(tags.toString()) : [],
             animated: isGif,
             likes: 0,
         }

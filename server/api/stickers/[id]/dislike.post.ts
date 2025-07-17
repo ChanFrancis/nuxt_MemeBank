@@ -5,7 +5,7 @@ import type { Sticker } from "~/types/sticker"
 export default defineEventHandler(async (event) => {
     const id = parseInt(event.context.params?.id || "")
 
-    const filePath = join(process.cwd(), "server/data/stickers.json")
+    const filePath = join(process.cwd(), ".data/stickers.json")
     const data = JSON.parse(readFileSync(filePath, "utf-8"))
 
     const sticker = data.find((s: Sticker) => s.id === id)

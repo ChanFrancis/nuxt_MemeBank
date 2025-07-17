@@ -6,3 +6,16 @@
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import Navbar from "./components/ui/Navbar.vue"
+import Vue3Toastify, { type ToastContainerOptions } from "vue3-toastify"
+
+onMounted(() => {
+    const nuxtApp = useNuxtApp()
+    nuxtApp.vueApp.use(Vue3Toastify, {
+        autoClose: 3000,
+        theme: "colored",
+    } as ToastContainerOptions)
+})
+</script>

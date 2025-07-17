@@ -3,33 +3,37 @@
         <div class="flex items-center justify-between mb-6">
             <h1 class="font-bold text-3xl">Memes</h1>
             <button class="btn btn-accent" @click="modalRef?.open()">
-                <span> <PlusIcon class="w-6 h-6" /> </span>Poster un meme
+                <PlusIcon class="w-6 h-6" />
+                <span>Poster un meme</span>
             </button>
         </div>
         <div v-if="pending">Chargement...</div>
-        <div v-else class="grid grid-cols-[repeat(auto-fit,_minmax(250px,180px))] gap-4 justify-center mb-8">
+        <div
+            v-else
+            class="grid grid-cols-[repeat(auto-fit,_minmax(250px,180px))] gap-4 justify-center mb-8 items-stretch"
+        >
             <ImageBox v-for="(sticker, index) in displayedStickers" :key="index">
                 <StickerCard :sticker="sticker" />
             </ImageBox>
-            <!-- <MoreButton @click="handleAddMoreMemes" /> -->
         </div>
         <MemeRandom />
     </div>
     <Modal ref="modalRef" title="Poster un meme">
-        <ImageUploader />
+        <ImageUploader :modal-ref="modalRef" />
     </Modal>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted } from "vue"
+import { ref, onMounted } from "vue"
 import { useStickerStore } from "@/stores/stickerStore"
-import MoreButton from "~/components/More.vue"
+import MoreButton from "~/components/ui/More.vue"
 import { PlusIcon } from "@heroicons/vue/24/solid"
 
 import ImageUploader from "@/components/ImageUploader.vue"
 import MemeRandom from "~/components/MemeRandom.vue"
 import type { Sticker } from "~/types/sticker"
 import { useSearchStore } from "~/stores/searchStore"
+import Modal from "~/components/ui/Modal.vue"
 
 const storeStickers = useStickerStore()
 const { stickers } = storeToRefs(storeStickers)
@@ -48,6 +52,7 @@ onMounted(async () => {
     displayedStickers.value = stickers.value
 })
 
+// update displayed stickers based on search query
 watch(
     [searchQuery, searchedStickers],
     (newSearchQuery) => {
@@ -62,10 +67,10 @@ watch(
     { immediate: true }
 )
 
-function handleAddMoreMemes() {
-    const firstSticker = stickers.value.find((s) => s.id === 1)
-    if (firstSticker) {
-        displayedStickers.value = Array(5).fill(firstSticker)
+watch(
+    () => storeStickers.stickers,
+    (newStickers) => {
+        displayedStickers.value = newStickers
     }
-}
+)
 </script>
