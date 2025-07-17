@@ -7,7 +7,7 @@
             </button>
         </div>
         <div v-if="pending">Chargement...</div>
-        <div v-else class="grid grid-cols-[repeat(auto-fit,_minmax(250px,180px))] gap-4 justify-center">
+        <div v-else class="grid grid-cols-[repeat(auto-fit,_minmax(250px,180px))] gap-4 justify-center mb-8">
             <ImageBox v-for="(sticker, index) in displayedStickers" :key="index">
                 <StickerCard :sticker="sticker" />
             </ImageBox>
@@ -49,14 +49,14 @@ onMounted(async () => {
 })
 
 watch(
-    [searchQuery],
-    () => {
-        if (isSearch.value && searchQuery.value.length > 0) {
+    [searchQuery, searchedStickers],
+    (newSearchQuery) => {
+        console.log("Search query changed:", newSearchQuery, searchedStickers.value)
+
+        if (isSearch.value && newSearchQuery.length >= 0) {
             displayedStickers.value = searchedStickers.value
-            console.log("hey", searchQuery.value, isSearch.value, searchedStickers.value)
         } else {
             displayedStickers.value = stickers.value
-            console.log("hey2", isSearch.value, searchedStickers.value)
         }
     },
     { immediate: true }

@@ -1,10 +1,10 @@
 <template>
     <div>
         <input
+            class="file-input file-input-bordered file-input-primary w-full mb-4"
             type="file"
             accept="image/*"
             @change="onFileChange"
-            class="file-input file-input-bordered file-input-primary w-full mb-4"
         />
         <figure v-if="preview" class="mb-4">
             <img
@@ -14,7 +14,7 @@
             />
         </figure>
 
-        <button class="btn btn-accent w-full" @click="upload" :disabled="loading || !file">
+        <button type="submit" class="btn btn-accent w-full" @click="upload" :disabled="loading || !file">
             <span v-if="loading"> Uploading… ({{ progress }}%) </span>
             <span v-else> Upload </span>
         </button>

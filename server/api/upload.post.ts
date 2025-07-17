@@ -2,6 +2,7 @@
 import { defineEventHandler, readMultipartFormData, createError } from "h3"
 import { promises as fs } from "fs"
 import { join, extname } from "path"
+import type { Sticker } from "~/types/sticker"
 
 const UPLOAD_DIR = join(process.cwd(), "public/stickers")
 const DATA_FILE = join(process.cwd(), "server/data/stickers.json")
@@ -47,14 +48,14 @@ export default defineEventHandler(async (event) => {
         const isGif = ext === ".gif"
         const newSticker = {
             id: newId,
-            name: filePart.filename,
+            name: filePart?.filename?.replace(/\.[^/.]+$/, ""),
             url: `/stickers/${filename}`,
             tags: [],
             animated: isGif,
             likes: 0,
         }
 
-        stickers.push(newSticker)
+        stickers.push(newSticker as Sticker)
 
         await fs.writeFile(DATA_FILE, JSON.stringify(stickers, null, 2), "utf-8")
 

@@ -12,13 +12,17 @@ export const useSearchStore = defineStore("search", () => {
         isSearch.value = !isSearch.value
     }
 
-    async function handleChange() {
+    async function handleChange(event: Event) {
         console.log("change")
+        const target = event.target as HTMLInputElement
+        const inputValue = target?.value || ""
+
         const res = await $fetch<Sticker[]>("/api/stickers").then((res) =>
             res.filter((sticker) => {
                 return (
-                    sticker.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-                    sticker.tags.some((tag) => tag.toLowerCase().includes(searchQuery.value.toLowerCase()))
+                    console.log("searching for:", inputValue, sticker.name),
+                    sticker.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+                        sticker.tags.some((tag) => tag.toLowerCase().includes(inputValue.toLowerCase()))
                 )
             })
         )
