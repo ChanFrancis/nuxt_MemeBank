@@ -9,7 +9,8 @@
 
 <script setup lang="ts">
 import Navbar from "./components/ui/Navbar.vue"
-import Vue3Toastify, { type ToastContainerOptions } from "vue3-toastify"
+import Vue3Toastify from "vue3-toastify"
+import type { ToastContainerOptions } from "vue3-toastify"
 
 onMounted(() => {
     const nuxtApp = useNuxtApp()
